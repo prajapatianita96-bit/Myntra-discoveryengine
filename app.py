@@ -1,13 +1,23 @@
 import streamlit as st # Force hot-reload
 import pandas as pd
-import time
-import os
-
 try:
     from src.ai_engine import process_dataframe
 except ModuleNotFoundError:
     # Fallback in case the src folder wasn't preserved during GitHub upload
     from ai_engine import process_dataframe
+
+try:
+    from src.scrapers.play_store import fetch_play_store_reviews
+    from src.scrapers.reddit import fetch_reddit_discussions
+    from src.scrapers.youtube_api import fetch_youtube_comments
+except ModuleNotFoundError:
+    # Fallback if uploaded flat
+    try:
+        from play_store import fetch_play_store_reviews
+        from reddit import fetch_reddit_discussions
+        from youtube_api import fetch_youtube_comments
+    except ModuleNotFoundError:
+        pass
 
 st.set_page_config(page_title="Myntra AI Discovery Engine", page_icon="🛍️", layout="wide")
 
@@ -17,7 +27,7 @@ st.markdown("This tool aggregates user feedback across platforms and uses Gemini
 
 # --- SIDEBAR: DATA COLLECTION ---
 st.sidebar.header("1. Data Collection")
-source = st.sidebar.selectbox("Select Data Source", ["Synthetic Data (For Case Study)"])
+source = st.sidebar.selectbox("Select Data Source", ["Play Store", "Reddit", "YouTube", "Synthetic Data (For Case Study)"])
 count = st.sidebar.slider("Number of items to fetch", 10, 1500, 50)
 
 if 'raw_data' not in st.session_state:

@@ -1,5 +1,7 @@
 streamlit
 pandas
+google-play-scraper
+google-api-python-client
 beautifulsoup4
 requests
 python-dotenv
