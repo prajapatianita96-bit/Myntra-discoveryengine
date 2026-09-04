@@ -3,7 +3,11 @@ import pandas as pd
 import time
 import os
 
-from src.ai_engine import process_dataframe
+try:
+    from src.ai_engine import process_dataframe
+except ModuleNotFoundError:
+    # Fallback in case the src folder wasn't preserved during GitHub upload
+    from ai_engine import process_dataframe
 
 st.set_page_config(page_title="Myntra AI Discovery Engine", page_icon="🛍️", layout="wide")
 
@@ -131,7 +135,10 @@ if st.session_state.analyzed_data is not None:
             st.chat_message("user").write(user_question)
             
             with st.spinner("Analyzing all insights..."):
-                from src.ai_engine import chat_with_data
+                try:
+                    from src.ai_engine import chat_with_data
+                except ModuleNotFoundError:
+                    from ai_engine import chat_with_data
                 answer = chat_with_data(df, user_question)
                 
             st.chat_message("assistant").write(answer)
