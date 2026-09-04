@@ -3,11 +3,6 @@ import pandas as pd
 import time
 import os
 
-# Import our custom scrapers and AI engine
-from src.scrapers.play_store import fetch_play_store_reviews
-from src.scrapers.app_store import fetch_app_store_reviews
-from src.scrapers.reddit import fetch_reddit_discussions
-from src.scrapers.youtube_api import fetch_youtube_comments
 from src.ai_engine import process_dataframe
 
 st.set_page_config(page_title="Myntra AI Discovery Engine", page_icon="🛍️", layout="wide")
@@ -18,7 +13,7 @@ st.markdown("This tool aggregates user feedback across platforms and uses Gemini
 
 # --- SIDEBAR: DATA COLLECTION ---
 st.sidebar.header("1. Data Collection")
-source = st.sidebar.selectbox("Select Data Source", ["Play Store", "Reddit", "YouTube", "Synthetic Data (For Case Study)"])
+source = st.sidebar.selectbox("Select Data Source", ["Synthetic Data (For Case Study)"])
 count = st.sidebar.slider("Number of items to fetch", 10, 1500, 50)
 
 if 'raw_data' not in st.session_state:
