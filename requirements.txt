@@ -1,0 +1,9 @@
+streamlit
+pandas
+google-play-scraper
+app-store-scraper
+google-api-python-client
+beautifulsoup4
+requests
+python-dotenv
+google-generativeai
